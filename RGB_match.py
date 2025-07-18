@@ -4,22 +4,28 @@ import time
 from openrgb import OpenRGBClient
 from openrgb.utils import RGBColor
 
+def connect_to_server(sleep_time):
+    while True:
+        try:
+            return OpenRGBClient("127.0.0.1", 6742)
+        except:
+            time.sleep(sleep_time)
+
 def update_colors(rgb_cli : OpenRGBClient):
     curr_accent_hex = winaccent.accent_normal
     curr_accent = RGBColor.fromHEX(curr_accent_hex)
 
-    for device in rgb_cli.devices:
-        if device.active_mode != "static":
-            device.set_mode("static")
-        device.set_color(curr_accent)
+    try:
+        for device in rgb_cli.devices:
+                if device.active_mode != "static":
+                    device.set_mode("static")
+                device.set_color(curr_accent)
+    except:
+        rgb_cli = connect_to_server(5)
+        update_colors(rgb_cli)
 
 def main():
-    while True:
-        try:
-            rgb_cli = OpenRGBClient("127.0.0.1", 6742)
-            break
-        except:
-            time.sleep(0.1)
+    rgb_cli = connect_to_server(0.1)
 
     thread = threading.Thread(target=lambda: winaccent.on_appearance_changed(lambda: update_colors(rgb_cli)), daemon=True)
     thread.start()
