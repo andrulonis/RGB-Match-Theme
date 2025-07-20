@@ -17,9 +17,9 @@ def update_colors(rgb_cli : OpenRGBClient):
 
     try:
         for device in rgb_cli.devices:
-                if device.active_mode != "static":
-                    device.set_mode("static")
-                device.set_color(curr_accent)
+            if device.active_mode != "static":
+                device.set_mode("static")
+            device.set_color(curr_accent)
     except:
         rgb_cli = connect_to_server(5)
         update_colors(rgb_cli)
