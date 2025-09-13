@@ -1,5 +1,5 @@
 # RGB matcher in OpenRGB based on Windows Theme/Accent Colour
-Python script that matches the colour of all your RGB devices visible in OpenRGB with the colour of your Windows theme/accent colour. A perfect use case scenario is when using tools like Wallpaper Engine or built-in Windows theme swapping that change your accent colour of Windows whenever the wallpaper changes (to match the wallpaper). 
+Python script that matches the colour of all your RGB devices visible in OpenRGB and devices addressable by VIA (e.g. QMK keyboards) with the colour of your Windows theme/accent colour. A perfect use case scenario is when using tools like Wallpaper Engine or built-in Windows theme swapping that change your accent colour of Windows whenever the wallpaper changes (to match the wallpaper). 
 
 ## Requirements
 - [OpenRGB](https://openrgb.org/)
@@ -22,7 +22,9 @@ Python script that matches the colour of all your RGB devices visible in OpenRGB
     pip install -r requirements.txt
     ```
 
-3. Create a task in Windows Task Scheduler:
+3. Replace the JSON definition [file](/definition_jsons/k10_version_2_ansi_rgb.json) with the JSON file(s) obtained from the manufacturer's website for your own QMK/VIA device.
+
+4. Create a task in Windows Task Scheduler:
     - open Task Scheduler
     - click `Create Task...`
     - in `General` tab:
