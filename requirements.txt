@@ -1,2 +1,4 @@
 openrgb-python==0.3.3
 winaccent==2.1.0
+via-lighting-api-osfix==0.2.1
+hidapi==0.14.0.post4
