@@ -23,6 +23,7 @@ def update_colors(rgb_cli : OpenRGBClient, via_apis : ViaLightingAPI):
     try:
         for via_api in via_apis:
             via_api.set_effect(1)
+            via_api.set_brightness(255)
             via_api.set_color([curr_accent.red, curr_accent.green, curr_accent.blue])
             via_api.save()
         for device in rgb_cli.devices:
