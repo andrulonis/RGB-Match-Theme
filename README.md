@@ -3,6 +3,7 @@ Python script that matches the colour of all your RGB devices visible in OpenRGB
 
 ## Requirements
 - [OpenRGB](https://openrgb.org/)
+- [Python](https://www.python.org/) - version <=3.13 (due to Windows not having proper wheels for C library installations)
 
 ## Setup
 1. Run OpenRGB, navigate to `Settings` and set the following options:
