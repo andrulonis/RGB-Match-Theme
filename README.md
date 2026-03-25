@@ -23,7 +23,7 @@ Python script that matches the colour of all your RGB devices visible in OpenRGB
     pip install -r requirements.txt
     ```
 
-3. Replace the JSON definition [file](/definition_jsons/k10_version_2_ansi_rgb.json) with the JSON file(s) obtained from the manufacturer's website for your own QMK/VIA device.
+3. Replace the JSON definition [file](/definition_jsons/k10_version_2_ansi_rgb.json) with the JSON file(s) obtained from the manufacturer's website for your own QMK/VIA device. If you have no devices, remove all the contents of the folder.
 
 4. Create a task in Windows Task Scheduler:
     - open Task Scheduler
