@@ -27,8 +27,9 @@ def update_colors(rgb_cli : OpenRGBClient, via_apis : ViaLightingAPI):
             via_api.set_color([curr_accent.red, curr_accent.green, curr_accent.blue])
             via_api.save()
         for device in rgb_cli.devices:
-            if "static" in device.modes and device.active_mode != "static":
-                device.set_mode("static")
+            mode_id = next(mode.id for mode in device.modes if mode.name.lower() == "static" or mode.name.lower() == "direct")
+            if device.active_mode != mode_id:
+                device.set_mode(mode_id)
             device.set_color(curr_accent)
     except:
         rgb_cli = connect_to_server(5)
