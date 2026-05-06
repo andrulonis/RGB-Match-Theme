@@ -9,10 +9,16 @@ from via_lighting_api import ViaLightingAPI
 from inspect import getsourcefile
 from os.path import abspath
 
-def connect_to_server(sleep_time):
+def connect_to_server(rgb_cli, sleep_time):
     while True:
         try:
-            return OpenRGBClient("127.0.0.1", 6742)
+            if rgb_cli == None:
+                rgb_cli = OpenRGBClient("127.0.0.1", 6742)
+            else:
+                rgb_cli.disconnect()
+                time.sleep(2)
+                rgb_cli.connect()
+            return
         except:
             time.sleep(sleep_time)
 
@@ -32,11 +38,12 @@ def update_colors(rgb_cli : OpenRGBClient, via_apis : ViaLightingAPI):
                 device.set_mode(mode_id)
             device.set_color(curr_accent)
     except:
-        rgb_cli = connect_to_server(5)
+        connect_to_server(rgb_cli, 5)
         update_colors(rgb_cli, via_apis)
 
 def main():
-    rgb_cli = connect_to_server(0.1)
+    rgb_cli = OpenRGBClient("127.0.0.1", 6742)
+    connect_to_server(rgb_cli, 1)
     via_apis = []
 
     # Get script's directory - makes the path and dir management agnostic to the 
