@@ -13,12 +13,12 @@ def connect_to_server(rgb_cli, sleep_time):
     while True:
         try:
             if rgb_cli == None:
-                rgb_cli = OpenRGBClient("127.0.0.1", 6742)
+                return OpenRGBClient("127.0.0.1", 6742)
             else:
                 rgb_cli.disconnect()
                 time.sleep(2)
                 rgb_cli.connect()
-            return
+                return rgb_cli
         except:
             time.sleep(sleep_time)
 
@@ -42,8 +42,8 @@ def update_colors(rgb_cli : OpenRGBClient, via_apis : ViaLightingAPI):
         update_colors(rgb_cli, via_apis)
 
 def main():
-    rgb_cli = OpenRGBClient("127.0.0.1", 6742)
-    connect_to_server(rgb_cli, 1)
+    rgb_cli = None
+    rgb_cli = connect_to_server(rgb_cli, 1)
     via_apis = []
 
     # Get script's directory - makes the path and dir management agnostic to the 
