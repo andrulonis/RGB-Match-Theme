@@ -9,16 +9,16 @@ from via_lighting_api import ViaLightingAPI
 from inspect import getsourcefile
 from os.path import abspath
 
-def connect_to_server(rgb_cli, sleep_time):
+def connect_to_server(rgb_cli : OpenRGBClient, sleep_time : float):
     while True:
         try:
-            if rgb_cli == None:
-                return OpenRGBClient("127.0.0.1", 6742)
-            else:
+            if rgb_cli != None:
                 rgb_cli.disconnect()
                 time.sleep(2)
                 rgb_cli.connect()
                 return rgb_cli
+            else:
+                return OpenRGBClient("127.0.0.1", 6742)
         except:
             time.sleep(sleep_time)
 
@@ -32,13 +32,15 @@ def update_colors(rgb_cli : OpenRGBClient, via_apis : ViaLightingAPI):
             via_api.set_brightness(255)
             via_api.set_color([curr_accent.red, curr_accent.green, curr_accent.blue])
             via_api.save()
+            
+        rgb_cli.update()
         for device in rgb_cli.devices:
-            mode_id = next(mode.id for mode in device.modes if mode.name.lower() == "static" or mode.name.lower() == "direct")
+            mode_id = next(mode.id for name in ["static", "direct"] for mode in device.modes if mode.name.lower() == name) 
             if device.active_mode != mode_id:
                 device.set_mode(mode_id)
             device.set_color(curr_accent)
     except:
-        connect_to_server(rgb_cli, 5)
+        rgb_cli = connect_to_server(rgb_cli, 5)
         update_colors(rgb_cli, via_apis)
 
 def main():
