@@ -35,7 +35,7 @@ def update_colors(rgb_cli : OpenRGBClient, via_apis : ViaLightingAPI):
             
         rgb_cli.update()
         for device in rgb_cli.devices:
-            mode_id = next(mode.id for name in ["static", "direct"] for mode in device.modes if mode.name.lower() == name) 
+            mode_id = next(mode.id for name in ["static", "direct", "off"] for mode in device.modes if mode.name.lower() == name) 
             if device.active_mode != mode_id:
                 device.set_mode(mode_id)
             device.set_color(curr_accent)
